@@ -107,6 +107,7 @@ The conceptual components map to AWS services as follows:
 
 - **API Layer**
   - API Gateway (HTTP API)
+  - HTTP API + Lambda tested with /hello endpoint
 
 - **Backend Logic**
   - AWS Lambda (serverless functions)
