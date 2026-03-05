@@ -1,4 +1,92 @@
-API Gateway receives HTTP requests
-API Gateway triggers Lambda
-Lambda runs backend logic
-Lambda returns response
+A simple serverless backend consists of:
+
+API Gateway – receives HTTP requests from clients
+Lambda – runs backend logic when triggered
+DynamoDB – stores application data
+CloudWatch – stores logs and monitoring data
+
+Example flow:
+
+Browser / Client
+      ↓
+API Gateway (API Gateway receives HTTP requests & triggers Lambda)
+      ↓
+Lambda (Lambda runs backend logic & returns response)
+      ↓
+DynamoDB
+      ↓
+JSON response
+
+---------------------------
+## API Gateway → Lambda → DynamoDB Flow
+
+### API Gateway
+
+API Gateway is the HTTP entry point to the backend.
+
+It receives requests from a browser or client and routes them to the appropriate Lambda function.
+
+Example route:
+
+`GET /hello → hello-world Lambda`
+
+---
+
+### Lambda
+
+Lambda runs the backend logic when triggered by API Gateway.
+
+In this project the Lambda function:
+
+- Receives the request from API Gateway
+- Queries DynamoDB for a record
+- Returns the result as JSON
+
+Example logic:
+
+API request → Lambda runs → query DynamoDB → return result
+
+---
+
+### DynamoDB
+
+DynamoDB is the database used to store application data.
+
+Key concepts:
+
+- **Table** – collection of records  
+- **Item** – one record in the table  
+- **Attribute** – field within the item  
+- **Partition key** – unique identifier used to retrieve records quickly  
+
+Current table:
+
+**Table name:** `BillingAccount`  
+**Partition key:** `billingAccountId`
+
+Example item stored in the table:
+
+billingAccountId: BA001
+primaryContactName: Sarah Smith
+email: sarah@example.com
+phone: 07000000000
+
+
+Lambda retrieves this item using the partition key.
+
+---
+
+### Response
+
+After retrieving the item from DynamoDB, Lambda returns a JSON response.
+
+Example response:
+
+```json
+{
+  "billingAccountId": "BA001",
+  "primaryContactName": "Sarah Smith",
+  "email": "sarah@example.com",
+  "phone": "07000000000"
+}
+
