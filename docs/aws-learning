@@ -1,0 +1,4 @@
+API Gateway receives HTTP requests
+API Gateway triggers Lambda
+Lambda runs backend logic
+Lambda returns response
